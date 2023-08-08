@@ -45,38 +45,11 @@ public class StepDefinitions {
     }
 
     @Then("I should consume the message with topic {string} and content {string}")
-    public void iShouldConsumeTheMessageWithTopicAndContent(String topic, String expectedMessage) {
-        // Create consumer properties
-        Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("testGroup", "true", embeddedKafka);
-        consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
-        // Create a Kafka consumer
-        ConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps, new StringDeserializer(), new StringDeserializer());
-        Consumer<String, String> consumer = consumerFactory.createConsumer();
-
-        // Subscribe to the topic
-        consumer.subscribe(Collections.singleton(topic));
-
-        // Set up a CountDownLatch to wait for records
-        CountDownLatch latch = new CountDownLatch(1);
-
-        // Consume records
-        new Thread(() -> {
-            try {
-                ConsumerRecord<String, String> record = KafkaTestUtils.getSingleRecord(consumer, topic);
-                LOGGER.info("[{}] Consuming a message: {}", record.topic(), record.value());
-                assertEquals(expectedMessage, record.value());
-                latch.countDown();
-            } finally {
-                consumer.close();
-            }
-        }).start();
-
-        // Wait for the latch to release (timeout: 10 seconds)
-        try {
-            latch.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // Handle exception
-        }
+    public void iShouldConsumeTheMessageWithTopicAndContent(String topic, String expectedMessage) throws InterruptedException {
+        EmbeddedKafkaConsumer consumer = new EmbeddedKafkaConsumer(embeddedKafka, topic);
+        Thread consumerThread = new Thread(consumer);
+        consumerThread.start();
+        consumerThread.join();
+        assertEquals(expectedMessage, consumer.getReceivedMessage());
     }
 }

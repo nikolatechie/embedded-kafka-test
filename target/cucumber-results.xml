@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="1.51" tests="1" skipped="0" failures="0" errors="0">
-<testcase classname="Embedded Kafka Test" name="Producing and consuming a message using Embedded Kafka" time="1.442">
+<testsuite name="Cucumber" time="1.546" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Embedded Kafka Test" name="Producing and consuming a message using Embedded Kafka" time="1.479">
 <system-out><![CDATA[
 Given I have an Embedded Kafka instance.....................................passed
 When I produce a message with topic "test-topic" and content "Hello, Kafka!".passed
