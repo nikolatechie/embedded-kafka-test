@@ -23,22 +23,20 @@ import static org.junit.Assert.assertEquals;
 @EmbeddedKafka(partitions = 1, topics = {"test-topic"})
 public class StepDefinitions {
     private final EmbeddedKafkaBroker embeddedKafka = new EmbeddedKafkaBroker(1, true, "test-topic");
-    private KafkaTemplate<String, String> kafkaTemplate;
     private static final Logger LOGGER = LoggerFactory.getLogger(StepDefinitions.class);
 
     @Given("I have an Embedded Kafka instance")
     public void iHaveAnEmbeddedKafkaInstance() {
         embeddedKafka.kafkaPorts(9092);
         embeddedKafka.afterPropertiesSet();
-
-        Map<String, Object> producerProps = KafkaTestUtils.producerProps(embeddedKafka);
-        DefaultKafkaProducerFactory<String, String> producerFactory = new DefaultKafkaProducerFactory<>(producerProps);
-        kafkaTemplate = new KafkaTemplate<>(producerFactory);
         LOGGER.info("Embedded Kafka is running");
     }
 
     @When("I produce a message with topic {string} and content {string}")
     public void iProduceAMessageWithTopicAndContent(String topic, String message) {
+        Map<String, Object> producerProps = KafkaTestUtils.producerProps(embeddedKafka);
+        DefaultKafkaProducerFactory<String, String> producerFactory = new DefaultKafkaProducerFactory<>(producerProps);
+        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory);
         kafkaTemplate.send(topic, message);
         kafkaTemplate.flush();
         LOGGER.info("[{}] Sending a message: {}", topic, message);

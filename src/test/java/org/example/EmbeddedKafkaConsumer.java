@@ -55,12 +55,10 @@ public class EmbeddedKafkaConsumer implements Runnable {
             consumer.close();
         }
 
-        // Wait for the latch to release (timeout: 10 seconds)
         try {
             latch.await(10, TimeUnit.SECONDS);
-        } catch (
-                InterruptedException e) {
-            // Handle exception
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

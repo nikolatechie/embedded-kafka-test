@@ -1,5 +1,11 @@
 
-Scenario: Producing and consuming a message using Embedded Kafka                        [90m# features/EmbeddedKafkaTest.feature:3[0m
+Scenario Outline: Producing and consuming a message using Embedded Kafka                [90m# features/EmbeddedKafkaTest.feature:10[0m
   [32mGiven [0m[32mI have an Embedded Kafka instance[0m                                               [90m# org.example.StepDefinitions.iHaveAnEmbeddedKafkaInstance()[0m
   [32mWhen [0m[32mI produce a message with topic [0m[32m[1m"test-topic"[0m[32m and content [0m[32m[1m"Hello, Kafka!"[0m          [90m# org.example.StepDefinitions.iProduceAMessageWithTopicAndContent(java.lang.String,java.lang.String)[0m
-  [32mThen [0m[32mI should consume the message with topic [0m[32m[1m"test-topic"[0m[32m and content [0m[32m[1m"Hello, Kafka!"[0m [90m# org.example.StepDefinitions.iShouldConsumeTheMessageWithTopicAndContent(java.lang.String,java.lang.String)[0m
+  [31mThen [0m[31mI should consume the message with topic [0m[31m[1m"test-topic"[0m[31m and content [0m[31m[1m"Hello, Kafka!"[0m [90m# org.example.StepDefinitions.iShouldConsumeTheMessageWithTopicAndContent(java.lang.String,java.lang.String)[0m
+      [31morg.junit.ComparisonFailure: expected:<[Hello, Kafka!]> but was:<[test]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at org.example.StepDefinitions.iShouldConsumeTheMessageWithTopicAndContent(StepDefinitions.java:52)
+	at ✽.I should consume the message with topic "test-topic" and content "Hello, Kafka!"(classpath:features/EmbeddedKafkaTest.feature:6)
+[0m

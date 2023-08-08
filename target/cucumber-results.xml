@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="1.546" tests="1" skipped="0" failures="0" errors="0">
-<testcase classname="Embedded Kafka Test" name="Producing and consuming a message using Embedded Kafka" time="1.479">
+<testsuite name="Cucumber" time="1.524" tests="1" skipped="0" failures="1" errors="0">
+<testcase classname="Embedded Kafka Test" name="Producing and consuming a message using Embedded Kafka - Topics and messages - Example #1.1" time="1.445">
+<failure type="org.junit.ComparisonFailure" message="expected:&lt;[Hello, Kafka!]&gt; but was:&lt;[test]&gt;">
+<![CDATA[org.junit.ComparisonFailure: expected:<[Hello, Kafka!]> but was:<[test]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at org.example.StepDefinitions.iShouldConsumeTheMessageWithTopicAndContent(StepDefinitions.java:52)
+	at ✽.I should consume the message with topic "test-topic" and content "Hello, Kafka!"(classpath:features/EmbeddedKafkaTest.feature:6)
+]]>
+</failure>
 <system-out><![CDATA[
 Given I have an Embedded Kafka instance.....................................passed
 When I produce a message with topic "test-topic" and content "Hello, Kafka!".passed
-Then I should consume the message with topic "test-topic" and content "Hello, Kafka!".passed
+Then I should consume the message with topic "test-topic" and content "Hello, Kafka!".failed
 ]]></system-out>
 </testcase>
 </testsuite>
