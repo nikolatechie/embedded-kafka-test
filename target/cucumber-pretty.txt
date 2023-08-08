@@ -1,0 +1,5 @@
+
+Scenario: Producing and consuming a message using Embedded Kafka                        [90m# features/EmbeddedKafkaTest.feature:3[0m
+  [32mGiven [0m[32mI have an Embedded Kafka instance[0m                                               [90m# org.example.StepDefinitions.iHaveAnEmbeddedKafkaInstance()[0m
+  [32mWhen [0m[32mI produce a message with topic [0m[32m[1m"test-topic"[0m[32m and content [0m[32m[1m"Hello, Kafka!"[0m          [90m# org.example.StepDefinitions.iProduceAMessageWithTopicAndContent(java.lang.String,java.lang.String)[0m
+  [32mThen [0m[32mI should consume the message with topic [0m[32m[1m"test-topic"[0m[32m and content [0m[32m[1m"Hello, Kafka!"[0m [90m# org.example.StepDefinitions.iShouldConsumeTheMessageWithTopicAndContent(java.lang.String,java.lang.String)[0m
